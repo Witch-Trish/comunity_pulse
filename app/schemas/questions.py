@@ -1,5 +1,4 @@
 from pydantic import BaseModel, Field
-from app.schemas.responses import ResponseSchema
 
 
 class QuestionCreate(BaseModel):
@@ -17,3 +16,5 @@ class QuestionUpdate(QuestionCreate):
 class QuestionSchema(BaseModel):
     id: int
     text: str
+
+
