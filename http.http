@@ -1,0 +1,60 @@
+#-----------------------Questions-----------------------
+#### getting all questions
+#GET http://127.0.0.1:5000/questions/ HTTP/1.1
+#content-type: application/json
+#
+#### getting a question by ID
+#GET http://127.0.0.1:5000/questions/1 HTTP/1.1
+#content-type: application/json
+#
+#### creating a question
+#POST http://127.0.0.1:5000/questions/ HTTP/1.1
+#content-type: application/json
+#
+#{
+#    "text": "Is it monday today?"
+#}
+
+#### deleting a question (enter at the end of url)
+#DELETE  http://127.0.0.1:5000/questions/5 HTTP/1.1
+#content-type: application/json
+#
+#### updating / changing a question by ID (enter at the end of url)
+#PUT  http://127.0.0.1:5000/questions/1 HTTP/1.1
+#content-type: application/json
+#
+#{
+#    "text": "Is AI dangerous?"
+#}
+
+
+
+#-----------------------Responses-----------------------------
+#### getting all responses
+#GET http://127.0.0.1:5000/responses/ HTTP/1.1
+#content-type: application/json
+#
+#### getting an answer for a question by ID (enter at the end of url)
+#GET http://127.0.0.1:5000/responses/1 HTTP/1.1
+#content-type: application/json
+#
+#### creating an answer for question by ID
+#POST http://127.0.0.1:5000/responses/ HTTP/1.1
+#content-type: application/json
+#
+#{
+#    "question_id": 2,
+#    "is_agree": true
+#}
+#### updating an answer for question by ID
+#PUT  http://127.0.0.1:5000/responses/1 HTTP/1.1
+#content-type: application/json
+#
+#{
+#    "question_id": 1,
+#    "is_agree": false
+#}
+#### deleting an answer for a question by ID (enter at the end of url)
+#DELETE  http://127.0.0.1:5000/responses/1 HTTP/1.1
+#content-type: application/json
+#
