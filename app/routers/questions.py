@@ -1,6 +1,6 @@
 from flask import Blueprint, request, jsonify
 from pydantic import ValidationError
-from app.models.question import Question
+from app.models.question import Question, Category
 from app.schemas.questions import QuestionCreate, QuestionSchema, QuestionUpdate
 from app.schemas.common import MessageResponse
 from app.models import db
@@ -13,7 +13,7 @@ questions_bp = Blueprint('questions', __name__, url_prefix='/questions')
 def get_questions():
     questions = Question.query.all()
     # model_dump() conversion to standard dictionary
-    serialized = [QuestionSchema(id=q.id, text=q.text).model_dump() for q in questions]
+    serialized = [QuestionSchema.model_validate(q).model_dump() for q in questions]
 
     if questions:
         return jsonify(MessageResponse(message=serialized).model_dump()), 200
@@ -24,16 +24,23 @@ def get_questions():
 # creating a function to create a question with method "POST"
 @questions_bp.route('/', methods=['POST'])
 def create_question():
-    input_data = request.get_json() # get_json() returns dictionary
+    input_data = request.get_json()
 
     try:
         question_data = QuestionCreate(**input_data)
-        question = Question(text=question_data.text)
-        db.session.add(question)
-        db.session.commit()
-        return jsonify(MessageResponse(message="Your question was created!").model_dump()), 201
     except ValidationError as e:
         return jsonify({'error': e.errors}), 400 # 400 indicates that the user did something wrong
+
+    # Проверяем, существует ли категория с таким ID
+    category = Category.query.get(question_data.category_id)
+    if not category:
+        return jsonify({'error': f"Category with id {question_data.category_id} does not exist."}), 400
+
+    question = Question(text=question_data.text, category_id=question_data.category_id)
+    db.session.add(question)
+    db.session.commit()
+
+    return jsonify(MessageResponse(message="Your question was created!").model_dump()), 201
 
 
 # creating a function to get question by ID
@@ -42,9 +49,9 @@ def get_question(id):
     question = Question.query.get(id)
 
     if question:
-        return jsonify(MessageResponse(message=QuestionSchema(id=question.id, text=question.text).model_dump()).model_dump())
+        return jsonify(MessageResponse(message=QuestionSchema.model_validate(question).model_dump()).model_dump()), 200
     else:
-        return jsonify(MessageResponse(message=f"No question with id {id} was found.").model_dump())
+        return jsonify(MessageResponse(message=f"No question with id {id} was found.").model_dump()), 404
 
 
 # creating a function to update a question by ID

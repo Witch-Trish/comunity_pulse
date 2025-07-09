@@ -1,4 +1,33 @@
-#-----------------------Questions-----------------------
+#-----------------------Categories-----------------------
+#### getting all categories
+#GET http://127.0.0.1:5000/categories/ HTTP/1.1
+#content-type: application/json
+#
+#### getting a category by ID
+#GET http://127.0.0.1:5000/categories/2 HTTP/1.1
+#content-type: application/json
+#
+#### creating a category
+#POST http://127.0.0.1:5000/categories/ HTTP/1.1
+#content-type: application/json
+#
+#{
+#    "name": "Science"
+#}
+
+#### deleting a category (enter at the end of url)
+#DELETE  http://127.0.0.1:5000/categories/2 HTTP/1.1
+#content-type: application/json
+#
+#### updating / changing a category by ID (enter at the end of url)
+#PUT  http://127.0.0.1:5000/categories/1 HTTP/1.1
+#content-type: application/json
+#
+#{
+#    "name": "Python & AI"
+#}
+
+##-----------------------Questions-----------------------
 #### getting all questions
 #GET http://127.0.0.1:5000/questions/ HTTP/1.1
 #content-type: application/json
@@ -12,11 +41,12 @@
 #content-type: application/json
 #
 #{
-#    "text": "Is it monday today?"
+#    "text": "Is Python useful for AI?",
+#    "category_id": 5
 #}
 
 #### deleting a question (enter at the end of url)
-#DELETE  http://127.0.0.1:5000/questions/5 HTTP/1.1
+#DELETE  http://127.0.0.1:5000/questions/3 HTTP/1.1
 #content-type: application/json
 #
 #### updating / changing a question by ID (enter at the end of url)
@@ -52,9 +82,9 @@
 #
 #{
 #    "question_id": 1,
-#    "is_agree": false
+#    "is_agree": true
 #}
 #### deleting an answer for a question by ID (enter at the end of url)
-#DELETE  http://127.0.0.1:5000/responses/1 HTTP/1.1
+#DELETE  http://127.0.0.1:5000/responses/2 HTTP/1.1
 #content-type: application/json
 #
