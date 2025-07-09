@@ -31,7 +31,7 @@ def create_question():
     except ValidationError as e:
         return jsonify({'error': e.errors}), 400 # 400 indicates that the user did something wrong
 
-    # Проверяем, существует ли категория с таким ID
+    # Check if a category with this ID exists
     category = Category.query.get(question_data.category_id)
     if not category:
         return jsonify({'error': f"Category with id {question_data.category_id} does not exist."}), 400

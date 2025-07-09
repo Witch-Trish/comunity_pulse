@@ -18,4 +18,4 @@ class CategorySchema(BaseModel):
     name: str
 
     class Config:
-        from_attributes = True
+        from_attributes = True #Allows you to extract data directly from object attributes, not just from a dictionary.

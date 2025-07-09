@@ -19,9 +19,9 @@ class QuestionUpdate(QuestionCreate):
 class QuestionSchema(BaseModel):
     id: int
     text: str
-    category: Optional[CategorySchema]
+    category: Optional[CategorySchema] #Specifies that the category field can be either a CategorySchema object or None.
 
     class Config:
-        from_attributes = True
+        from_attributes = True #Allows you to extract data directly from object attributes, not just from a dictionary
 
 
